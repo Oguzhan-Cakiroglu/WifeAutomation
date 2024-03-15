@@ -1,4 +1,5 @@
 Feature: Divan Login Feature
 
-@mainDivan @1
-Screnario: Divan login app should see first screen
+@mainDivan
+Scenario: Divan login with wrong phone number
+    Given enter username
