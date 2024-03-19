@@ -1,22 +1,8 @@
-import time
-
-from pages.login_pages import LoginPage
+# features/steps/login_steps.py
 from behave import given
-from runner import RunDriver
 from pages.login_pages import LoginPage
 
-
-
-class LoginSteps:
-    def __init__(self):
-        self.runner = RunDriver()
-        self.driver = self.runner.driver
-        self.loginpage =LoginPage()
-    @given('enter username')
-    def login_username(self):
-        self.loginpage = LoginPage()
-        self.loginpage.enter_username()
-
-
-
-
+@given('User open Divan app')
+def login_username(context):
+    login_page = LoginPage(context.driver)
+    login_page.enter_username()

@@ -1,17 +1,15 @@
 from appium import webdriver
 from selenium.webdriver import ActionChains
-from appium.webdriver.common.touch_action import TouchAction
+#from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from common.common_locators import CommonLocators
 
 class Base:
     """Base class for driver actions like click, get element
     """
     def __init__(self,driver):
-        self.driver = driver 
-        self.commonlocators = CommonLocators()      
+        self.driver = driver
             
     def get_element(self,by,selector,*args):
         if (len(args) >=1):
@@ -97,9 +95,9 @@ class Base:
     def swipe_to_point(self,x1,y1,x2,y2,milliseconds):
         self.driver.swipe(x1,y1,x2,y2,milliseconds)   
         
-    def tap_coordinate(self,x,y):
-        action = TouchAction(self.driver)
-        action.tap(None,x,y,1).perform()  
+    #def tap_coordinate(self,x,y):
+        #action = TouchAction(self.driver)
+        #action.tap(None,x,y,1).perform()
         
     def get_attribute_value(self,by,selector,attribute):
         return self.get_element(by,selector).get_attribute(attribute)    
@@ -178,9 +176,9 @@ class Base:
         except:
             assert True    
             
-    def touch_middle_of_screen(self):
-        screen_size = self.driver.get_window_rect()
-        center_x = screen_size['width'] / 2
-        center_y = screen_size['height'] / 2
-        action = TouchAction(self.driver)
-        action.tap(x=center_x, y=center_y).perform()        
+    #def touch_middle_of_screen(self):
+        #screen_size = self.driver.get_window_rect()
+        #center_x = screen_size['width'] / 2
+        #center_y = screen_size['height'] / 2
+        #action = TouchAction(self.driver)
+        #action.tap(x=center_x, y=center_y).perform()
