@@ -174,11 +174,5 @@ class Base:
         try:
             self.get_element(AppiumBy.XPATH,self.commonlocators.TEXT_XPATH.format(text),5)
         except:
-            assert True    
-            
-    #def touch_middle_of_screen(self):
-        #screen_size = self.driver.get_window_rect()
-        #center_x = screen_size['width'] / 2
-        #center_y = screen_size['height'] / 2
-        #action = TouchAction(self.driver)
-        #action.tap(x=center_x, y=center_y).perform()
+            assert True  
+    

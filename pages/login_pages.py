@@ -16,3 +16,7 @@ class LoginPage(Base):
         time.sleep(10)
         self.click_element(By.XPATH, self.locators.KESFET_TEXT_XPATH)
         time.sleep(10)
+
+    def enter_google(self):
+        self.base.open_web_page()
+        time.sleep(10)

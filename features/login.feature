@@ -1,8 +1,12 @@
-Feature: Divan Login Feature
+Feature: Chrome ve Google Testi
+  Kullanıcı olarak Chrome'u açıp farklı sayfalara gidebilmek istiyorum
 
-@mainDivan
-Scenario: Divan login with wrong phone number
-    Given User open Divan app
+  @android_google
+  Scenario: Chrome'u açıp Google'a git
+    Given Chrome tarayıcısı açık
+    When Google.com adresine gidilir
 
-
-
+  @android_python
+  Scenario: Chrome'u açıp Python.org adresine git
+    Given Chrome tarayıcısı açık
+    When Python.org adresine gidilir
