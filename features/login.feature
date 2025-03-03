@@ -1,6 +1,5 @@
 Feature: Chrome ve Google Testi
-  Kullanıcı olarak Chrome'u açıp farklı sayfalara gidebilmek istiyorum
-
+  Kullanıcı Testleri
   @android_google
   Scenario: Chrome'u açıp Google'a git
     Given Chrome tarayıcısı açık
