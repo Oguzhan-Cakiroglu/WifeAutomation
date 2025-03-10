@@ -5,19 +5,22 @@ import time
 import requests
 import threading
 
-def start_appium():
-    """Appium sunucusunu başlatır."""
-    print("Appium sunucusu başlatılıyor...")
-    process = subprocess.Popen(['appium'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def start_appium(port):
+    """Belirtilen portta Appium sunucusunu başlatır."""
+    print(f"Appium sunucusu {port} portunda başlatılıyor...")
+    process = subprocess.Popen(['appium', '--port', str(port)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    # Appium'un başarılı bir şekilde başlamasını bekle
     for _ in range(30):
         try:
-            response = requests.get('http://localhost:4723/status', timeout=2)
+            response = requests.get(f'http://localhost:{port}/status', timeout=2)
             if response.status_code == 200:
-                print("Appium sunucusu başarıyla başlatıldı!")
+                print(f"✅ Appium sunucusu {port} portunda başarıyla başlatıldı!")
                 return process
         except requests.RequestException:
             time.sleep(1)
-    print("Appium sunucusu başlatılamadı!")
+    
+    print(f"❌ Appium sunucusu {port} portunda başlatılamadı!")
     return None
 
 def determine_platforms_from_tags(tags):
@@ -62,12 +65,18 @@ if __name__ == '__main__':
         print("Platform belirlenemedi! Tag'lerde 'android', 'ios' veya 'web_safari' kullanın.")
         sys.exit(1)
 
-    # Appium'u başlat (Sadece Android ve iOS için, Safari'de gerek yok)
-    if 'android' in platforms or 'ios' in platforms:
-        appium_process = start_appium()
-        if not appium_process:
-            sys.exit("Appium başlatılamadığı için testler çalıştırılamıyor!")
-        appium_processes.append(appium_process)
+    # Appium'u başlat (Sadece Android ve iOS için)
+    if 'android' in platforms:
+        appium_android = start_appium(4723)
+        if not appium_android:
+            sys.exit("❌ Android için Appium başlatılamadığı için testler çalıştırılamıyor!")
+        appium_processes.append(appium_android)
+
+    if 'ios' in platforms:
+        appium_ios = start_appium(4724)
+        if not appium_ios:
+            sys.exit("❌ iOS için Appium başlatılamadığı için testler çalıştırılamıyor!")
+        appium_processes.append(appium_ios)
 
     if 'safari' in platforms:
         print("Safari testi seçildi, driver environment.py'da başlatılacak.")
@@ -86,4 +95,4 @@ if __name__ == '__main__':
     # Appium'u kapat
     for process in appium_processes:
         process.terminate()
-        print("Appium sunucusu kapatıldı!")
+        print("🚪 Appium sunucusu kapatıldı!")
