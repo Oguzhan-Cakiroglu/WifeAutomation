@@ -14,17 +14,17 @@ def before_all(context):
         try:
             safari_driver = selenium_webdriver.Safari()
             context.drivers['safari'] = safari_driver
-            context.driver = safari_driver  # Tüm testlerde kullanılabilecek driver
+            context.driver = safari_driver
             print("✅ Safari WebDriver başlatıldı.")
         except Exception as e:
             print(f"❌ Safari WebDriver başlatılamadı: {e}")
             raise
 
-    if 'android' in platform:
+    if 'android1' in platform or platform == 'android':  # İlk Android cihaz (fiziksel cihaz)
         capabilities = {
             'platformName': 'Android',
             'automationName': 'UiAutomator2',
-            'deviceName': 'Pixel_6_API_33',
+            'udid': 'R58NA2W4L8J',  # Fiziksel cihazın UDID'si
             'appPackage': 'com.android.chrome',
             'appActivity': 'com.google.android.apps.chrome.Main',
             'noReset': True
@@ -36,29 +36,53 @@ def before_all(context):
         appium_server_url = 'http://localhost:4723'
         try:
             android_driver = appium_webdriver.Remote(command_executor=appium_server_url, options=options)
-            context.drivers['android'] = android_driver
+            context.drivers['android1'] = android_driver
             if context.driver is None:
                 context.driver = android_driver
-            print("✅ Appium Android driver başlatıldı.")
+            print("✅ Appium Android1 (R58NA2W4L8J) driver başlatıldı.")
         except Exception as e:
-            print(f"❌ Android driver başlatılamadı: {e}")
+            print(f"❌ Android1 driver başlatılamadı: {e}")
+            raise
+
+    if 'android2' in platform:  # İkinci Android cihaz (emülatör)
+        capabilities = {
+            'platformName': 'Android',
+            'automationName': 'UiAutomator2',
+            'udid': 'emulator-5554',  # Emülatörün UDID'si
+            'appPackage': 'com.android.chrome',
+            'appActivity': 'com.google.android.apps.chrome.Main',
+            'noReset': True
+        }
+
+        options = UiAutomator2Options()
+        options.load_capabilities(capabilities)
+
+        appium_server_url = 'http://localhost:4724'  # Aynı server, farklı port gerekebilir
+        try:
+            android_driver2 = appium_webdriver.Remote(command_executor=appium_server_url, options=options)
+            context.drivers['android2'] = android_driver2
+            if context.driver is None:
+                context.driver = android_driver2
+            print("✅ Appium Android2 (emulator-5554) driver başlatıldı.")
+        except Exception as e:
+            print(f"❌ Android2 driver başlatılamadı: {e}")
             raise
 
     if 'ios' in platform:
         capabilities = {
-    'platformName': 'iOS',
-    'automationName': 'XCUITest',
-    'deviceName': 'iPhone 16 Pro',  # Cihaz modelinizin adı
-    'platformVersion': '18.2',  # iOS versiyonunuz
-    'udid': 'A6DC6B16-68CA-433A-80F0-8E5C62D65253',  # Cihazınızın UDID'si
-    'browserName': 'Safari',
-    'noReset': True
+            'platformName': 'iOS',
+            'automationName': 'XCUITest',
+            'deviceName': 'iPhone 16 Pro',
+            'platformVersion': '18.2',
+            'udid': 'B79C4560-9B74-4660-9CB2-0C23AF9A70F4',
+            'browserName': 'Safari',
+            'noReset': True
         }
 
         options = XCUITestOptions()
         options.load_capabilities(capabilities)
 
-        appium_server_url = 'http://localhost:4724'
+        appium_server_url = 'http://localhost:4725'
         try:
             ios_driver = appium_webdriver.Remote(command_executor=appium_server_url, options=options)
             context.drivers['ios'] = ios_driver

@@ -33,8 +33,10 @@ def determine_platforms_from_tags(tags):
     
     if 'web_safari' in tag_value:
         platforms.append('safari')
-    if 'android' in tag_value:
-        platforms.append('android')
+    if 'android_both' in tag_value:  # İki Android cihazını çalıştırmak için yeni tag
+        platforms.extend(['android1', 'android2'])
+    elif 'android' in tag_value:  # Tek Android cihazı için
+        platforms.append('android1')  # Varsayılan olarak android1
     if 'ios' in tag_value:
         platforms.append('ios')
 
@@ -62,18 +64,24 @@ if __name__ == '__main__':
     platforms = determine_platforms_from_tags(tags)
 
     if not platforms:
-        print("Platform belirlenemedi! Tag'lerde 'android', 'ios' veya 'web_safari' kullanın.")
+        print("Platform belirlenemedi! Tag'lerde 'android', 'android_both', 'ios' veya 'web_safari' kullanın.")
         sys.exit(1)
 
-    # Appium'u başlat (Sadece Android ve iOS için)
-    if 'android' in platforms:
-        appium_android = start_appium(4723)
-        if not appium_android:
-            sys.exit("❌ Android için Appium başlatılamadığı için testler çalıştırılamıyor!")
-        appium_processes.append(appium_android)
+    # Appium'u başlat
+    if 'android1' in platforms:
+        appium_android1 = start_appium(4723)
+        if not appium_android1:
+            sys.exit("❌ Android1 için Appium başlatılamadığı için testler çalıştırılamıyor!")
+        appium_processes.append(appium_android1)
+
+    if 'android2' in platforms:
+        appium_android2 = start_appium(4724)
+        if not appium_android2:
+            sys.exit("❌ Android2 için Appium başlatılamadığı için testler çalıştırılamıyor!")
+        appium_processes.append(appium_android2)
 
     if 'ios' in platforms:
-        appium_ios = start_appium(4724)
+        appium_ios = start_appium(4725)  # iOS için farklı bir port
         if not appium_ios:
             sys.exit("❌ iOS için Appium başlatılamadığı için testler çalıştırılamıyor!")
         appium_processes.append(appium_ios)
