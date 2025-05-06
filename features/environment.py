@@ -20,11 +20,11 @@ def before_all(context):
             print(f"❌ Safari WebDriver başlatılamadı: {e}")
             raise
 
-    if 'android1' in platform or platform == 'android':  # İlk Android cihaz (fiziksel cihaz)
+    if 'android1' in platform:  # İlk Android cihaz (fiziksel cihaz)
         capabilities = {
             'platformName': 'Android',
             'automationName': 'UiAutomator2',
-            'udid': 'R58NA2W4L8J',  # Fiziksel cihazın UDID'si
+            'udid': 'emulator-5554',
             'appPackage': 'com.android.chrome',
             'appActivity': 'com.google.android.apps.chrome.Main',
             'noReset': True
@@ -48,7 +48,7 @@ def before_all(context):
         capabilities = {
             'platformName': 'Android',
             'automationName': 'UiAutomator2',
-            'udid': 'emulator-5554',  # Emülatörün UDID'si
+            'udid': 'emulator-5556',  # Emülatörün UDID'si
             'appPackage': 'com.android.chrome',
             'appActivity': 'com.google.android.apps.chrome.Main',
             'noReset': True

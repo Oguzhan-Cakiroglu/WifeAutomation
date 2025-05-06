@@ -33,9 +33,9 @@ def determine_platforms_from_tags(tags):
     
     if 'web_safari' in tag_value:
         platforms.append('safari')
-    if 'android_both' in tag_value:  # İki Android cihazını çalıştırmak için yeni tag
-        platforms.extend(['android1', 'android2'])
-    elif 'android' in tag_value:  # Tek Android cihazı için
+    if 'android2' in tag_value:  # İki Android cihazını çalıştırmak için yeni tag
+        platforms.extend(['android2'])
+    if 'android1' in tag_value:  # Tek Android cihazı için
         platforms.append('android1')  # Varsayılan olarak android1
     if 'ios' in tag_value:
         platforms.append('ios')
