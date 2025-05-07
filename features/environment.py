@@ -39,7 +39,7 @@ def before_all(context):
             context.drivers['android1'] = android_driver
             if context.driver is None:
                 context.driver = android_driver
-            print("✅ Appium Android1 (R58NA2W4L8J) driver başlatıldı.")
+            print("✅ Appium Android1 driver başlatıldı.")
         except Exception as e:
             print(f"❌ Android1 driver başlatılamadı: {e}")
             raise
@@ -63,7 +63,7 @@ def before_all(context):
             context.drivers['android2'] = android_driver2
             if context.driver is None:
                 context.driver = android_driver2
-            print("✅ Appium Android2 (emulator-5554) driver başlatıldı.")
+            print("✅ Appium Android2 driver başlatıldı.")
         except Exception as e:
             print(f"❌ Android2 driver başlatılamadı: {e}")
             raise
