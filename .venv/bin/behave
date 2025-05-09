@@ -1,4 +1,4 @@
-#!/Users/oguzhancakiroglu/Downloads/divan_android_project/.venv/bin/python
+#!/Users/softwaretest/Desktop/git/WifeAutomation/.venv/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys
